@@ -18,6 +18,7 @@ Generate natural-language retrieval queries and gold relevance judgments for a g
 Direct factual lookups against brain content.
 
 Examples:
+
 - "What projects is [Person] working on?"
 - "When did [Project] ship?"
 - "Who is the contact at [Company]?"
@@ -29,6 +30,7 @@ Gold: list of note_ids that contain the answer.
 Time-anchored queries. Require temporal reasoning over note dates and timeline fields.
 
 Examples:
+
 - "Who did I meet last Tuesday?"
 - "What changed this month in [Project]?"
 - "What decisions did we make in March?"
@@ -40,6 +42,7 @@ Gold: note_ids with relevant temporal content.
 Whose-note-is-this queries. Require the system to understand user identity.
 
 Examples:
+
 - "Show me MY notes about [Topic]" (vs. a co-user's notes)
 - "What have I said about [Company]?"
 
@@ -58,6 +61,7 @@ Gold: `gold_note_ids: []`, `expected_abstain: true`.
 ## Format
 
 Each qrel:
+
 ```json
 {
   "query_id": "q001",
@@ -73,6 +77,7 @@ Each qrel:
 ## Validation
 
 After generation, verify each qrel:
+
 - Every `gold_note_id` exists in the target fixture
 - Abstention qrels have `gold_note_ids: []`
 - No duplicate query texts

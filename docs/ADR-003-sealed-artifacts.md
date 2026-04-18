@@ -27,7 +27,7 @@ Brain-Wrought uses a **four-repo architecture** with strict separation of public
 ### 1. Four repos
 
 | Repo | Visibility | Contents |
-|---|---|---|
+| --- | --- | --- |
 | `brain-wrought-harness` | Public | pytest runner, submission CLI, config loaders, reference implementations of interfaces |
 | `brain-wrought-skills` | Public | Markdown skills for fixture/query generation, **public rubric scaffolds** (not actual judge prompts), submitter docs |
 | `brain-wrought-engine` | Public | Deterministic scoring code — retrieval metrics, entity recall math, F1 calculators, bootstrap CI |
@@ -37,7 +37,7 @@ The first three contain everything a submitter needs to understand, implement, a
 
 ### 2. Sealed repo structure
 
-```
+```text
 brain-wrought-sealed/
 ├── qrels/
 │   ├── retrieval_test.jsonl         # held-out test qrels for Axis A
@@ -72,6 +72,7 @@ brain-wrought-sealed/
 ### 4. CI-time access pattern
 
 Official eval flow:
+
 1. Submitter pushes Docker image to GHCR
 2. GitHub Actions workflow in `brain-wrought-harness` triggers
 3. Workflow authenticates to `brain-wrought-sealed` via GitHub Actions OIDC (no long-lived token)
@@ -87,6 +88,7 @@ Critically: **submission container never sees sealed artifacts.** Sealed content
 ### 5. Public-private boundary
 
 **Public (submitters can see):**
+
 - Harness code, submission interface, CLI
 - Engine code (scoring math, entity extraction logic)
 - Public dev qrels (~100 retrieval queries, 30 ingestion tasks, 10 assistant tasks) — subset of test set, useful for self-eval
@@ -95,6 +97,7 @@ Critically: **submission container never sees sealed artifacts.** Sealed content
 - Entity schemas, backlink conventions, frontmatter formats
 
 **Sealed (never released):**
+
 - Full test qrels (~500 queries across all axes)
 - Actual judge rubric prompts
 - Complete gold entity graphs for all test fixtures
@@ -112,12 +115,14 @@ Critically: **submission container never sees sealed artifacts.** Sealed content
 ### 7. What to do if sealed content leaks
 
 Contingency plan:
+
 1. Immediately rotate all leaked content
 2. Flag all submissions since the likely leak date for audit
 3. Publicly disclose the incident in a blog post and Arxiv update
 4. Post-mortem documented in `/SECURITY.md`
 
 Leak detection:
+
 - Monitor submission scores for sudden jumps (possible overfitting to leaked qrels)
 - Monitor for submissions that over-perform on test set relative to dev set (anomaly)
 - Watch GitHub for accidentally-forked content
@@ -167,6 +172,7 @@ Leak detection:
 ## Review conditions
 
 Revisit this ADR if:
+
 - Scale exceeds single-maintainer capacity → add trusted maintainer(s)
 - Academic reviewer consistently flags sealed-as-problematic → consider limited public audit-subset
 - Any leak occurs → rotate + reassess controls

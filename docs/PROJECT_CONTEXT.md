@@ -23,6 +23,7 @@ Each axis yields a score with bootstrap confidence intervals. A weighted composi
 ### 2.1 Benchmark gap
 
 No current benchmark covers the full personal-knowledge-agent loop:
+
 - RAGAS measures RAG quality generally, not personal knowledge
 - MTEB is embeddings
 - HELMET is long-context
@@ -39,6 +40,7 @@ Meanwhile, a dozen personal-brain-agent systems (Mem0, Cognee, COG, Smart2Brain,
 Berkeley RDI published (April 11, 2026) that an automated scanning agent hit near-perfect scores on 7 of 8 major agent benchmarks (SWE-bench Verified, SWE-bench Pro, Terminal-Bench, FieldWorkArena, CAR-bench at 100%; WebArena ~100%, GAIA 98%; OSWorld 73%) *without solving a single task*. Exploits included trojanizing test infrastructure, reading answer keys from config files, and prompt injection on LLM judges. Source: rdi.berkeley.edu, April 2026.
 
 Brain-Wrought is designed from day one to resist these patterns:
+
 - Sealed qrels (private repo, pulled at eval time via CI token)
 - Fixture randomization (entity names, query order, adversarial injection rotation)
 - Judge panel voting (3 models, majority vote, bootstrap CI)
@@ -87,7 +89,7 @@ Developmental goal for Arron: credibility for GS-13+ transition into federal AI 
 ## 6. Related prior work
 
 | Project | What it is | Relationship |
-|---|---|---|
+| --- | --- | --- |
 | gbrain (garrytan) | Personal brain system + retrieval eval harness | Brain-Wrought extends gbrain's retrieval eval pattern (P@k, Recall@k, MRR, nDCG@k) and adds 2 new axes. Plan is to DM Garry for collaboration/cross-link at Phase 1 public launch. |
 | Mem0 | Agent memory framework; ~49% on LongMemEval | Target submitter. Invite for eval post-launch. |
 | Cognee | Knowledge-graph agent memory | Target submitter. Invite for eval post-launch. |
@@ -101,12 +103,14 @@ Developmental goal for Arron: credibility for GS-13+ transition into federal AI 
 ## 7. Success criteria
 
 **Minimum** (v0.5, approx. Week 2-3):
+
 - Retrieval axis public
 - Reference submission (naive grep baseline) runs end-to-end
 - Public leaderboard live
 - Blog post + X announcement
 
 **Target** (v1.0, summer 2026):
+
 - All three axes public
 - 3+ reference submissions (naive, basic RAG, gbrain-style)
 - Docker container for full reproduction
@@ -115,11 +119,13 @@ Developmental goal for Arron: credibility for GS-13+ transition into federal AI 
 - HN Show post; r/LocalLLaMA and r/ObsidianMD cross-posts
 
 **Stretch** (post-v1, through PCS in September 2026):
+
 - 5+ external submissions on leaderboard within 30 days of v1
 - Citation in a Mem0 or Cognee blog post
 - Listed or discussed in Berkeley RDI's weekly newsletter
 - v1.1 with community feedback incorporated
 
 **Formal academic target** (Spring 2027):
+
 - NeurIPS 2027 Evaluations & Datasets Track submission (abstract ~May 2027, conference Dec 2027)
 - By submission time, v1 will have ~10-11 months of production use, community feedback, and any corrections baked into v1.x

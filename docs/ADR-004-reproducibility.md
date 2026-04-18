@@ -12,6 +12,7 @@
 The broader claim of Brain-Wrought — "a credible neutral benchmark" — is unsupportable without reproducibility. Academic venues (NeurIPS 2027 ED Track) and community adoption both require that any reviewer or external team can clone the repo, run the eval, and get identical scores. The Berkeley RDI April 2026 exploit paper (which motivated this project) demonstrated that unreproducible benchmarks are trivially gamed; reproducibility is therefore also a Berkeley-proof design requirement.
 
 The temptation in a warpspeed build is to defer reproducibility infrastructure to v1.1. This is wrong:
+
 - Retrofitting pinned dependencies is painful (every library has drifted by then)
 - Retrofitting deterministic seeds requires auditing every stochastic operation
 - Retrofitting Docker is possible but adds weeks
@@ -26,6 +27,7 @@ Reproducibility is a first-class, non-negotiable requirement for every phase. Fu
 ### 1. Determinism boundaries (documented per operation)
 
 Each scoring operation is classified as:
+
 - **Fully deterministic** — must produce bit-identical output (with IEEE 754 float caveat)
 - **Seeded-stochastic** — must produce identical output given the same seed
 - **Bounded-stochastic** — reruns must fall within declared confidence interval
@@ -44,6 +46,7 @@ Every operation in `brain-wrought-engine/` is annotated with its determinism cla
 ### 3. Deterministic seed propagation
 
 Every random operation derives its seed from `submission_hash` (SHA256 of Docker image digest + harness version). Enforcement:
+
 - Import `random.Random()` not `random.<anything>` (no global state)
 - Import `numpy.random.Generator` not `numpy.random.<anything>`
 - Every call documented with seed source
@@ -53,6 +56,7 @@ Audit via lint rule in CI: any use of global random state → build fails.
 ### 4. Dockerized eval harness
 
 Official eval only runs inside `brain-wrought/eval:v{version}` Docker image. Submission Dockerfile must follow the pattern in `SUBMISSION_PROTOCOL.md`. Images:
+
 - Published to GHCR with SHA digest in release notes
 - Signed with cosign (keyless via GitHub OIDC)
 - SBOM attached to each release (generated via syft)
@@ -60,6 +64,7 @@ Official eval only runs inside `brain-wrought/eval:v{version}` Docker image. Sub
 ### 5. Public CI as living proof
 
 GitHub Actions workflow on every main-branch commit:
+
 1. Build Docker image from scratch (no cache)
 2. Verify image digest matches declared
 3. Run eval on all 3 reference submissions
@@ -73,6 +78,7 @@ This is the public attestation that reproducibility holds. It also catches silen
 ### 6. Submitter reproducibility requirements
 
 Documented in `SUBMISSION_PROTOCOL.md`:
+
 - Must be a Docker image (not a naked Python script)
 - Must pin all dependencies
 - Must declare model temperatures and versions
@@ -129,6 +135,7 @@ Submissions that can't reproduce their own scores in manual audit (top-5) are de
 ## Review conditions
 
 Revisit this ADR if:
+
 - Reproduction failures (same seed, different scores) exceed 1% across audit samples → investigate root cause
 - Model provider deprecation cadence exceeds quarterly → invest in local-model fallbacks
 - CI cost exceeds $100/month → add filtering (e.g., full eval only on release tags)
