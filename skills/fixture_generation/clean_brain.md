@@ -15,7 +15,7 @@ Generate a synthetic personal knowledge vault with consistent, well-formed schem
 
 A clean brain has 80-150 notes organized as:
 
-```
+```text
 brain/
 ├── people/        # one note per person
 ├── companies/     # one note per organization

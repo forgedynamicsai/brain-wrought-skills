@@ -18,24 +18,29 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 **Weeks 1-2.** Ship retrieval first. Fastest credible public artifact.
 
 **Wave 1 status:**
+
 - `[BW-001]` Clean-schema fixture generator ✓ merged
 - `[BW-003]` P@k, Recall@k, MRR, nDCG@k scorers ✓ merged
 - `[BW-005]` Supabase `brain_wrought` schema with RLS ✓ merged
 
 **Wave 2 status:**
+
 - `[BW-002a]` Qrel data models + wikilink expansion skeleton ✓ merged
 - `[BW-004a]` Evaluate CLI command skeleton ✓ merged
 
 **Wave 2b (active):**
+
 - `[BW-002b]` Typed queries (factual/temporal/personalization/abstention), non-title query text, LiteLLM Sonnet verification
 - `[BW-004b]` Rename evaluate→self-eval, add submit stub, wire Docker subprocess, YAML config loading
 
 **Round 3:**
+
 - `[BW-006]` Reference submission: naive grep baseline — blocked on BW-002b AND BW-004b merging
 
 **Go/no-go gate:** Reference submission scores end-to-end on public dev set with real typed qrels. Leaderboard page deployed (even if empty).
 
 **Public milestone (early May):**
+
 - Blog post: "Brain-Wrought v0.5: Measuring personal brain retrieval"
 - X thread from @vitelloma
 - Post to r/LocalLLaMA, r/ObsidianMD, HN
@@ -48,6 +53,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 **Weeks 3-5.** The hard axis. The one nobody measures.
 
 **Wave 2 issues:**
+
 - `[BW-007]` Synthetic inbox generator (emails, PDFs, xlsx, calendar, Slack sim)
 - `[BW-008]` Gold entity graph generator (seeded, deterministic)
 - `[BW-009]` Entity recall scorer
@@ -60,6 +66,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 **Go/no-go gate:** Reference submission scores on both clean + dirty fixture tiers.
 
 **Public milestone (late May / early June):**
+
 - Blog post: "The ingestion axis — the one nobody measures"
 - X thread
 - Update leaderboard with axis B scores for all submissions
@@ -71,6 +78,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 **Weeks 6-8.** Port Forge Dynamics judge panel. Seal rubrics. Bootstrap confidence intervals.
 
 **Wave 3 issues:**
+
 - `[BW-015]` Judge panel subgraph (LangGraph port from Forge Dynamics)
 - `[BW-016]` Judge adapter (LiteLLM → Sonnet 4.6 + Opus 4.7 + GPT-5.4)
 - `[BW-017]` Rubric loader (pulls sealed rubrics from CI at eval time)
@@ -91,6 +99,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 **Week 9 target window.** Ship, publish, announce.
 
 **v1.0 release:**
+
 - v1.0 git tag + signed release
 - Docker image pushed to GHCR (tagged + signed)
 - Full reproducibility run from fresh clone → matching scores
@@ -98,6 +107,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 - 3+ reference submissions published with baseline scores
 
 **Arxiv preprint (cs.IR primary; cs.LG + cs.AI cross-listed):**
+
 - Technical write-up framing Brain-Wrought as a response to the Berkeley April 2026 exploit paper
 - Describes the three-axis framework, sealed-artifacts pattern, judge panel design, reproducibility guarantees
 - Presents baseline results across reference submissions
@@ -105,6 +115,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 - Submitted the same day as v1.0 tag
 
 **Public launch campaign:**
+
 - Launch thread on X from @vitelloma
 - HN Show post
 - r/LocalLLaMA, r/ObsidianMD, r/MachineLearning cross-posts
@@ -112,6 +123,7 @@ Complete. Four repos scaffolded under `forgedynamicsai` GitHub org, ADRs committ
 - Email Berkeley RDI weekly newsletter with preprint link
 
 **Stretch goals for the launch week:**
+
 - Apply for HuggingFace leaderboard listing
 - Contact PrivacyBench authors about a submodule integration for v1.1
 - Invite 3-5 target submitters to run their systems privately before public submission
@@ -138,7 +150,7 @@ The paper at this stage is meaningfully different from the arxiv preprint: it re
 How warpspeed actually works:
 
 | Lever | Savings |
-|---|---|
+| --- | --- |
 | Parallel agents via Agent Orchestrator v0.1.0 (Arron's WealthAgent pattern) | ~40% schedule compression on implementation |
 | Haiku 4.5 batch for all fixture generation | 50x cost savings, 5x time savings vs. Opus |
 | Aggressive prompt caching (90% off on cached input) | ~50% cost savings on repeated system prompts |
@@ -157,6 +169,7 @@ If any phase slips by > 1 week:
 - **Slip in Phase 4:** Arxiv preprint can follow v1 launch by 1-2 weeks. Don't delay launch for preprint polish.
 
 **Never compromise:**
+
 - Sealed qrels (ship with nothing else before they exist)
 - Deterministic seeds (reproducibility is the whole claim)
 - Reference submission that runs end-to-end (without this there's no leaderboard)

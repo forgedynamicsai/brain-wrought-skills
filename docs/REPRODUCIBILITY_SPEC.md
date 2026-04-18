@@ -95,6 +95,7 @@ bootstrap_rng = Random(seed + 3)
 Official eval only runs inside `brain-wrought/eval:v{version}`. Image published to GHCR, signed with cosign, SBOM attached via syft.
 
 **Self-eval mode** (public dev set only):
+
 ```bash
 docker run --rm -v $(pwd)/submission:/submission \
   brain-wrought/eval:v1.0 \
@@ -103,6 +104,7 @@ docker run --rm -v $(pwd)/submission:/submission \
 ```
 
 **Official eval mode** (CI only):
+
 ```bash
 docker run --rm \
   -e BRAIN_WROUGHT_CI_TOKEN=$SEALED_REPO_TOKEN \

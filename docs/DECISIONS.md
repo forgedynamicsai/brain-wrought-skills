@@ -114,7 +114,7 @@ Format: date, decision, reasoning, alternative considered.
 
 ---
 
-*(Append new decisions below. Never edit past entries — add a superseding entry if direction changes.)*
+Append new decisions below. Never edit past entries — add a superseding entry if direction changes.
 
 ---
 

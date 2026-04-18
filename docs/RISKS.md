@@ -150,11 +150,12 @@ Likelihood: 1 (unlikely) to 5 (near-certain).
 
 ---
 
-*(Add new risks below as they surface. Review weekly.)*
+Add new risks below as they surface. Review weekly.
 
 ---
 
 *v2 — Apr 19, 2026. Changes from v1:*
+
 - *R-01 likelihood increased from 3 to 4 (no AgentX forcing function means timeline hinges primarily on competitor preemption)*
 - *R-03 contingency timeline updated to reference NeurIPS 2027 rather than AgentX Phase 2*
 - *R-04 mitigation expanded to address the forgedynamicsai org hosting decision*

@@ -23,6 +23,7 @@ Brain-Wrought needs a judge design that handles all four.
 ### 1. Three-judge panel with majority vote
 
 Panel composition:
+
 - **Judge A:** Anthropic Claude Sonnet 4.6 (temperature 0.1)
 - **Judge B:** Anthropic Claude Opus 4.7 (temperature 0.1)
 - **Judge C:** OpenAI GPT-5.4 (temperature 0.1)
@@ -30,6 +31,7 @@ Panel composition:
 Same-vendor concentration is 67% (A+B are both Anthropic). Mitigation: pair Anthropic judges with one non-Anthropic judge as cross-check. Next-best non-Anthropic candidate is Google Gemini 3.1 Pro — keep as a fallback if GPT-5.4 access becomes constrained.
 
 **Voting rule:**
+
 - Each judge produces scores on four rubrics: identity accuracy, stance coherence, novelty vs. regurgitation, calibration
 - Each rubric scored 1-5
 - Panel score per rubric = median of three judges (robust to single-judge outlier)
@@ -38,6 +40,7 @@ Same-vendor concentration is 67% (A+B are both Anthropic). Mitigation: pair Anth
 ### 2. Rubric sealing
 
 Four rubrics, each a sealed Markdown file in `brain-wrought-sealed/judge_rubrics/`:
+
 - `identity_private.md` — Does the response correctly reflect who the user is?
 - `stance_private.md` — Does the response represent the user's documented views?
 - `novelty_private.md` — Is the system synthesizing or just paraphrasing notes?
@@ -50,6 +53,7 @@ Four rubrics, each a sealed Markdown file in `brain-wrought-sealed/judge_rubrics
 ### 3. Rubric loading at eval time
 
 At official eval time, the harness:
+
 1. Authenticates to `brain-wrought-sealed` via CI token (GitHub Actions OIDC)
 2. Fetches rubrics from pinned commit SHA
 3. Passes rubrics to judges as system prompts
@@ -58,6 +62,7 @@ At official eval time, the harness:
 ### 4. Rubric rotation
 
 Every 90 days:
+
 - New rubric versions written by project maintainer
 - Red-teamed against: (a) the adversarial injection suite, (b) top-5 prior submissions to check for regression
 - Released as new `qrel_version`; old submissions retain scores under old version
@@ -66,6 +71,7 @@ Every 90 days:
 ### 5. Bootstrap confidence intervals
 
 For each axis-C task:
+
 - Panel scores sample: 3 judges × 1 rubric × 1 task = 3 data points
 - Across N tasks (50 for v1): bootstrap 1000 resamples
 - Report mean ± 95% CI
@@ -75,6 +81,7 @@ This makes small score differences appropriately uncertain. Leaderboard displays
 ### 6. Judge prompt engineering standard
 
 All rubric prompts must pass Arron's 10-principle prompt framework:
+
 1. Sharply defined role (evaluator with domain expertise)
 2. Unambiguous imperatives (must/shall/never)
 3. Strict output format (JSON with fixed keys)
@@ -96,9 +103,11 @@ All rubric prompts must pass Arron's 10-principle prompt framework:
 ### Human judges
 
 **Rejected for v1.** Gold standard but:
+
 - Doesn't scale to 500+ submissions/year
 - Introduces its own biases (IRR challenges, cultural variation)
 - Cost-prohibitive
+
 Considered for post-hoc audit of top-5 submissions (see REPRODUCIBILITY_SPEC.md §8).
 
 ### Five-judge panel
@@ -132,6 +141,7 @@ Considered for post-hoc audit of top-5 submissions (see REPRODUCIBILITY_SPEC.md 
 ## Review conditions
 
 Revisit this ADR if:
+
 - Inter-rater agreement (Fleiss kappa) on pilot < 0.4 → consider 5-judge or human pilot
 - Any judge deprecates → swap; re-baseline all submissions
 - Cost per submission > $10 → reduce panel or task count
