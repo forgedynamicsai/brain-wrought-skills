@@ -9,7 +9,7 @@
 
 ## Context
 
-Berkeley AgentX-AgentBeats Phase 2 judges novel benchmarks on several criteria; reproducibility is among the most weighted. Beyond AgentX, the broader claim of Brain-Wrought — "a credible neutral benchmark" — is unsupportable without reproducibility.
+The broader claim of Brain-Wrought — "a credible neutral benchmark" — is unsupportable without reproducibility. Academic venues (NeurIPS 2027 ED Track) and community adoption both require that any reviewer or external team can clone the repo, run the eval, and get identical scores. The Berkeley RDI April 2026 exploit paper (which motivated this project) demonstrated that unreproducible benchmarks are trivially gamed; reproducibility is therefore also a Berkeley-proof design requirement.
 
 The temptation in a warpspeed build is to defer reproducibility infrastructure to v1.1. This is wrong:
 - Retrofitting pinned dependencies is painful (every library has drifted by then)
